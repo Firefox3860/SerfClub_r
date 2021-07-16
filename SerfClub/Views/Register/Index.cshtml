@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "Регистрация нового пользователя";
+}
+@model UserViewModel
+
+<form asp-controller="Register" asp-action="Create"
+      method="post" enctype="multipart/form-data">
+
+    <div class="card" style="width:700px; margin:auto">
+        <div class="card-header">Регистрация</div>
+        <div class="card-body">
+
+            <label>Псевдоним*</label><br>
+            <input class="form-control" id="usr" style="width:300px" type="text" asp-for="Nickname" />
+            <span asp-validation-for="Nickname"></span>
+
+            <label>Почта*</label><br>
+            <input class="form-control" id="email" style="width:300px" type="text" asp-for="Email" placeholder="example@ex.ru" />
+            <span asp-validation-for="Email"></span>
+
+            <label>Пароль*</label><br>
+            <input class="form-control" id="psw" style="width:300px" type="password" asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+
+            <label>Подтвердите пароль*</label><br>
+            <input class="form-control" id="ckpsw" style="width:300px" type="password" asp-for="CheckPassword" />
+            <span asp-validation-for="CheckPassword"></span>
+
+            <label>Фамилия</label><br>
+            <input class="form-control" id="fam" style="width:300px" type="text" asp-for="LastName" />
+
+            <label>Имя</label><br>
+            <input class="form-control" id="nm" style="width:300px" type="text" asp-for="FirstName" />
+
+            <label>Выберите фото</label><br>
+            <div class="row form-group" style="margin-left: inherit">
+                <input imageDataName" disabled class="form-control col-3" />
+                <label class="btn btn-dark">
+                    Обзор...
+                    <input type="file" style="display: none" id="imageData"
+                           accept=".jpg,.jpeg,.png" name="imageData" onchange="onImageUpload()">
+                </label>
+            </div>
+
+            <label>Контактная информация</label><br>
+            <textarea class="form-control" id="" type="text" asp-for="Contacts" style="height: 60px" maxlength="255"></textarea>
+
+            <label>О себе</label><br>
+            <textarea class="form-control" id="" type="text" asp-for="AboutMe" style="height: 60px" maxlength="255"></textarea>
+
+            <label>Достижения</label><br>
+            <textarea class="form-control" id="" type="text" asp-for="Achievements" style="height: 60px" maxlength="255"></textarea>
+
+            <br><label>* - поля, обязательные для заполнения</label>
+            <input class="btn btn-dark" style="" type="submit" value="Зарегистрироваться" />
+
+            <div asp-validation-summary="ModelOnly"></div><br>
+        </div>
+    </div><br>
+
+    <center>Уже зарегистрированы? <a class="btn btn-dark" asp-controller="Login" asp-action="Index">Войти</a></center>
+</form>
+
+<script type="text/javascript">
+    function onImageUpload() {
+
+        if (document.getElementById('imageData')
+            && document.getElementById('imageData').files
+            && document.getElementById('imageData').files[0].name !== "") {
+            document.getElementById("imageDataName").value
+                = "...\\" + document.getElementById('imageData').files[0].name;
+        }
+    }
+</script>

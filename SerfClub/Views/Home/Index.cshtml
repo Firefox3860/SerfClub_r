@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Лента новостей";
+}
+@model News
+
+@if (User.Identity.IsAuthenticated)
+{
+<form style=""
+      asp-controller="Home" asp-action="AddNewPost"
+      method="post" enctype="multipart/form-data">
+    
+    <div class="card" style="width:800px; margin:auto">
+        <div class="card-header">Добавление новой записи</div>
+        <div class="card-body">
+
+            <textarea class="form-control" id="" type="text" asp-for="Text" style="height: 100px" maxlength="4095" placeholder="Введите текст"></textarea>
+            <input type="file"
+                   accept=".jpg,.jpeg,.png"
+                   class="hidden" name="imageData" />
+
+        </div>
+        <div class="card-footer">
+            <input class="btn btn-dark" type="submit" />
+        </div>
+    </div>
+</form><br>
+}
+
+<div>
+    @foreach (News post in ViewBag.Posts)
+    {
+    <div class="card" style="width:800px; margin:auto">
+        <div class="card-header">
+
+
+            <img src="~/img/default-user.png" height="30" style="border-radius: 50%" />
+            <label>@post.Author.Nickname</label>
+            <label>@post.CreateDateLabel</label>
+        </div>
+        <div class="card-body">
+            
+                @if (!string.IsNullOrEmpty(post.Text))
+                {
+                    <label>@post.Text</label>
+                }
+                @if (post.Photo != Guid.Empty)
+                {
+                    var photoUrl = SerfClub.Helpers.ImageHelper.GetUrl(post.Photo);
+                    @if (photoUrl != null)
+                    {
+                        <img src="@Url.Content(photoUrl)" width="50" />
+                    }
+                }
+
+            </div>
+        </div>
+        <br>
+        }
+    </div>

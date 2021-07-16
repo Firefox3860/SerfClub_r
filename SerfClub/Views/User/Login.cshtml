@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Вход на сайт";
+}
+@model LoginViewModel
+
+<form asp-controller="User" asp-action="Login"
+      method="post" enctype="multipart/form-data">
+
+    <div class="card" style="width:350px; margin:auto">
+        <div class="card-header">Авторизация</div>
+        <div class="card-body">
+
+            <label>Псевдоним</label><br>
+            <input class="form-control" id="usr" type="text" asp-for="Nickname" maxlength="20" />
+
+            <label>Пароль</label><br>
+            <input class="form-control" id="psw" type="password" asp-for="Password" maxlength="20" />
+            
+            <center>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" asp-for="RememberMe" />Запомнить меня
+                    </label>
+                    <span asp-validation-for="RememberMe" />
+                </div>
+                <br>
+
+                <div asp-validation-summary="ModelOnly"></div>
+
+                <input class="btn btn-dark" type="submit" value="Войти" style="width:305px" /><br>
+            </center>
+        </div>
+    </div>
+    <br>
+    <center>
+        Ещё нет аккаунта? <a class="btn btn-dark" asp-controller="Register" asp-action="Index">Зарегистрироваться</a>
+    </center>
+</form>
+
+
+
